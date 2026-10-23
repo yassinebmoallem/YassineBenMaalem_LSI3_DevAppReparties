@@ -8,7 +8,7 @@ public class Client {
     public static void main (String [] args ) throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Je suis un client pas encore connecté…");
-        Socket socket = new Socket("192.168.1.5", 1234);
+        Socket socket = new Socket("192.168.1.2", 1234);
         DataInputStream input = new DataInputStream(socket.getInputStream());
         DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 
