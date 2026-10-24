@@ -5,28 +5,24 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket("192.168.56.1", 1234);
-        BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Client connecté au serveur.");
         BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-
-        System.out.println("Client connecte au serveur.");
-
-
-            System.out.print("Entrez un message : ");
-            String message = clavier.readLine();
-
-            output.println(message);
-            String reponse = input.readLine();
-            System.out.println("Reponse du serveur: " + reponse);
-
-
-        input.close();
-        output.close();
+        Scanner clavier = new Scanner(System.in);
+        System.out.print("Entrez une opération : ");
+        String operation = clavier.nextLine().trim();
+        if (!operation.matches("\\d+\\s*[+*/-]\\s*\\d+")) {
+            System.out.println("Erreur : opération invalide. Exemple : 55 * 25");
+        } else {
+            output.println(operation);
+            String resultat = input.readLine();
+            System.out.println("Résultat reçu : " + resultat);
+        }
         socket.close();
-        System.out.println("Client arrete.");
     }
 }
