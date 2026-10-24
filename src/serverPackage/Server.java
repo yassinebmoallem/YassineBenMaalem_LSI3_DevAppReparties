@@ -1,37 +1,36 @@
 package serverPackage;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    public static void main(String [] args) throws IOException {
-        ServerSocket socketServeur = new ServerSocket(1234);
-        System.out.println("Je suis un serveur en attente la connexion d'un client ");
-        Socket socket = socketServeur.accept();
-        System.out.println("un client est connecté");
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(1234);
+        System.out.println("Serveur en attente d un client...");
 
-        DataInputStream input= new DataInputStream((socket.getInputStream() ));
-        DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-        int x;
-        do {
-            x = input.readInt();
-            int result = x*5;
-            System.out.println("Numéro reçu: "+ x );
-            System.out.println("Résultat calculé: " + result);
-            output.writeInt(result);
-        }while (x!=0);
+        Socket socket = serverSocket.accept();
+        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
 
+        System.out.println("Un client est connecte.");
 
+        String message;
+        while ((message = input.readLine()) != null) {
+            if (message.equalsIgnoreCase("quit")) {
+                break;
+            }
+            System.out.println("Message recu: " + message);
+            output.println("Bien recu: " + message);
+        }
 
         input.close();
         output.close();
         socket.close();
-        socketServeur.close();
-        System.out.println("Serveur arrêté.");
+        serverSocket.close();
+        System.out.println("Serveur arrete.");
     }
 }
-
-

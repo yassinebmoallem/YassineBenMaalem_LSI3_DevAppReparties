@@ -1,34 +1,32 @@
 package clientPackage;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Scanner;
+
 public class Client {
-    public static void main (String [] args ) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Je suis un client pas encore connecté…");
-        Socket socket = new Socket("192.168.1.2", 1234);
-        DataInputStream input = new DataInputStream(socket.getInputStream());
-        DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+    public static void main(String[] args) throws IOException {
+        Socket socket = new Socket("192.168.56.1", 1234);
+        BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
 
-        System.out.println("je suis un client connecté");
-
+        System.out.println("Client connecte au serveur.");
 
 
-        int x;
-        do {
-            System.out.print("donner un entier: ");
-            x = scanner.nextInt();
-            output.writeInt(x);
-            int result = input.readInt();
-            System.out.println("Résultat reçu: " + x + " * 5 = " + result);
-        }while (x!=0);
+            System.out.print("Entrez un message : ");
+            String message = clavier.readLine();
+
+            output.println(message);
+            String reponse = input.readLine();
+            System.out.println("Reponse du serveur: " + reponse);
+
 
         input.close();
         output.close();
         socket.close();
-        scanner.close();
-        System.out.println("Client arrêté.");
+        System.out.println("Client arrete.");
     }
 }
