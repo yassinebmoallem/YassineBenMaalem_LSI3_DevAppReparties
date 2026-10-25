@@ -1,4 +1,4 @@
-package serverPackage;
+package ex1.serverPackage;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

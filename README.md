@@ -78,3 +78,49 @@ Grâce à cette vérification locale, le serveur est protégé contre les chaîn
 ## Résultat de l'activité
 
 Le service de calculatrice a été amélioré avec succès. Le client et le serveur peuvent désormais échanger des chaînes de caractères (CC) grâce aux classes du package `java.io`. Le client peut envoyer des opérations complètes et la validation de la syntaxe garantit que seules les requêtes correctement formatées sont traitées par le serveur.
+
+---
+
+# Activité 2-2 : Échange des objets entre Client/Serveur
+
+## Objectif
+L'objectif de cette activité est de remplacer l'envoi de chaînes de caractères par l'envoi d'objets Java sérialisés. Le client envoie un objet contenant les détails de l'opération, et le serveur renvoie le résultat.
+
+---
+
+## Étape 1 : Création de la classe Operation
+
+Une classe `Operation` a été créée dans un package commun (`communPackage`).
+Cette classe implémente l'interface `Serializable` pour permettre la transmission de l'objet via le réseau TCP.
+Elle contient trois attributs :
+- `operande1` (int)
+- `operateur` (String)
+- `operande2` (int)
+
+---
+
+## Étape 2 : Envoi de l'objet par le client
+
+Le client utilise la classe `ObjectOutputStream` pour sérialiser l'objet `Operation` et l'envoyer au serveur.
+Avant la création de l'objet, le client vérifie que l'opérateur saisi est valide (`+`, `-`, `*`, `/`).
+
+---
+
+## Étape 3 : Réception et traitement côté serveur
+
+Le serveur utilise la classe `ObjectInputStream` pour désérialiser l'objet reçu.
+Il récupère ensuite les opérandes et l'opérateur via les méthodes `getOperande1()`, `getOperateur()` et `getOperande2()`.
+Après avoir effectué le calcul, le serveur renvoie le résultat au client sous forme de chaîne de caractères via `PrintWriter`.
+
+### Capture d'écran de l'échange d'objet
+
+![](images/objet_recu.png)
+
+### Interprétation
+La capture montre que le serveur a reçu l'objet avec succès et a pu extraire ses données (`Objet recu : 10 * 5`). Le calcul a été effectué correctement et le résultat (`50`) a été renvoyé au client et affiché dans sa console.
+
+---
+
+## Résultat de l'activité 2-2
+
+L'échange d'objets entre le client et le serveur a été implémenté avec succès. L'utilisation de l'interface `Serializable` et des flux `ObjectOutputStream` / `ObjectInputStream` permet de transmettre des structures de données complexes de manière simple et fiable via les sockets TCP.

@@ -1,7 +1,7 @@
-package clientPackage;
+package ex2.clientPackage;
 
 
-import modelPackage.Operation;
+import ex2.modelPackage.Operation;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;

@@ -1,4 +1,4 @@
-package clientPackage2;
+package ex1.clientPackage;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
