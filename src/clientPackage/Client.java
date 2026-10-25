@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("192.168.56.1", 1234);
+        Socket socket = new Socket("192.168.1.2", 1234);
         System.out.println("Client connecté au serveur.");
         BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
@@ -17,7 +17,7 @@ public class Client {
         System.out.print("Entrez une opération : ");
         String operation = clavier.nextLine().trim();
         if (!operation.matches("\\d+\\s*[+*/-]\\s*\\d+")) {
-            System.out.println("Erreur : opération invalide. Exemple : 55 * 25");
+            System.out.println("Erreur : opération invalide. ");
         } else {
             output.println(operation);
             String resultat = input.readLine();
